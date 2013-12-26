@@ -10,7 +10,7 @@ import time
 import os
 #jingdian_urls = []
 jingdian_url = 'http://lvyou.baidu.com/%s/'
-conn=MySQLdb.connect(host='localhost',user='root',passwd='',db='mafengwo',port=3306,charset='utf8')
+conn=MySQLdb.connect(host='54.201.192.244',user='qyer',passwd='qyer',db='mafengwo',port=3306,charset='utf8')
 cur=conn.cursor()
 #2
 cur.execute('select two_cat_url,id from baidu_poi where need_spider =1 and one_cat_url is not null and two_cat_url is not null and three_cat_url is null and total_pingjia is not null')
