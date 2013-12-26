@@ -11,7 +11,7 @@
  Target Server Version : 50163
  File Encoding         : utf-8
 
- Date: 12/26/2013 20:04:31 PM
+ Date: 12/26/2013 20:16:55 PM
 */
 
 SET NAMES utf8;
@@ -22,17 +22,10 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `baidu_poi_pic_url`;
 CREATE TABLE `baidu_poi_pic_url` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `baidu_poi_id` int(11) NOT NULL,
   `poi_pic_url` text,
   PRIMARY KEY (`id`),
   KEY `baidu_poi_id` (`baidu_poi_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Records of `baidu_poi_pic_url`
--- ----------------------------
-BEGIN;
-INSERT INTO `baidu_poi_pic_url` VALUES ('0', '1', '11');
-COMMIT;
+) ENGINE=MyISAM AUTO_INCREMENT=108 DEFAULT CHARSET=utf8;
 

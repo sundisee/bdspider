@@ -20,7 +20,6 @@ cur.execute('select two_cat_url,id from baidu_poi where need_spider =1 and one_c
 #cur.execute('select four_cat_url,id  from baidu_poi where need_spider =1 and four_cat_url is not null and three_cat_url is not null and total_pingjia is not null')
 result = cur.fetchall()
 jingdian_urls = [jingdian_url % i[0] for i in result if i]
-ids = [i[1] for i in result ]
 ##判断有无重复
 print len(jingdian_urls)
 print len(list(set(jingdian_urls)))
@@ -37,38 +36,15 @@ class ProvinceSpider(BaseSpider):
     start_urls = jingdian_urls
     def parse(self, response):
         hxs = HtmlXPathSelector(response)
-        baidu_poi_id = 0
+        baidu_poi_id = -1
         for i in result:
              if  i[0] in response.url:
                  baidu_poi_id = i[1]
                  print baidu_poi_id
-        #simple template
         sites = hxs.xpath('//div[@id="J_slide-holder"]/figure')
         for site in sites:
-            poi_pic = site.xpath('a/img/@src').extract()
+            poi_pic = site.xpath('a/img/@src').extract()[0]
             print poi_pic
-            sql = 'insert into baidu_poi_pic_url(poi_pic_url,baidu_poi_id) valuse(%s,%s)'
-            params = (poi_pic,)
+            sql = 'insert into baidu_poi_pic_url(poi_pic_url,baidu_poi_id) values(%s,%s)'
+            params = (poi_pic,int(baidu_poi_id))
             cur.execute(sql,params)
-#        jingdian_gonglue = hxs.xpath('//div[@id="J-Wrap-geography_history"]').extract()
-#        jingdian_gonglue2 = hxs.xpath('//section[@id="scene-middle-tab"]').extract()
-#        for site in sites:
-#            #simple template eg:anze
-#            if jingdian_gonglue:
-#                poi_pic = site.xpath('a/img/@src').extract()
-#            #normal template eg:yonghegong
-#            if jingdian_gonglue2:
-#                poi_pic = site.xpath('div/meta/@content').extract()
-##                content = os.popen('curl %s'% response.url).read()
-##                poi_lightspot_title = re.compile(r'title',re.S).search(content)
-##                print poi_lightspot_title.groups()
-##                poi_lightspot_title = site.xpath('div').extract()
-##                poi_lightspot_desc = site.xpath('div').extract()
-#                print poi_pic
-#        if jingdian_gonglue2:
-#            menpiao = hxs.xpath('//div[@id="J-aside-info-price"]/div/p/text()').extract()
-#            open_time = hxs.xpath('//div[@class="val opening_hours-value"]').extract()
-#            addr = hxs.xpath('//div[@id="J-aside-info-address"]/span[2]/text()').extract()
-#            suggest_play_time = hxs.xpath('//div[@id="J-aside-info-recommend_visit_time"]/span[@class="val recommend_visit_time-value"]/text()').extract()
-#            phone = hxs.xpath('//div[@id="J-aside-info-phone"]/span[@class="val phone-value"]/text()').extract()
-#            print menpiao,open_time,addr,phone
