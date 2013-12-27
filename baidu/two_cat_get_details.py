@@ -11,7 +11,7 @@ def get_poi_details():
     cur.execute('select two_cat_url,id from baidu_poi where two_cat_url is not null and one_cat_url is not null and addr is null and total_pingjia is null  order by id')
     result = cur.fetchall()
     print len(result)
-    for k,cat_name in enumerate(result):
+    for k,cat_name in enumerate(result[294:]):
         ajax_url = jingdian_url%(cat_name[0])
         print cat_name[0],ajax_url
         try:

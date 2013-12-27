@@ -11,7 +11,7 @@ def get_poi_details():
     cur.execute('select three_cat_url,id from baidu_poi where three_cat_url is not null and two_cat_url is not null and addr is null and total_pingjia is null  order by id')
     result = cur.fetchall()
     print len(result)
-    for k,cat_name in enumerate(result):
+    for k,cat_name in enumerate(result[67+193:]):
         ajax_url = jingdian_url%(cat_name[0])
         print cat_name[0],ajax_url
         try:
@@ -77,7 +77,7 @@ def get_poi_details():
 #            params = (cat_name[0],cat_name[1],cat_name[2],cat_name[3],cat_name[4],cat_name[5],addr,open_time_desc,price_desc,simple_desc,more_desc,recommend_visit_time,need_spider,total_pingjia)
 #            print params
 #            cur.execute(sql,params)
-#        print len(result)
+        print len(result)
         print 'running to:%s'%k
 if __name__ == '__main__':
     get_poi_details()
