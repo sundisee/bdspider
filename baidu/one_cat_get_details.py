@@ -13,8 +13,8 @@ def get_city_details():
     result = cur.fetchall()
     print result
     for k,cat_name in enumerate(result):
-        ajax_url = jingdian_url%(cat_name[2])
-        print cat_name[2],ajax_url
+        ajax_url = jingdian_url%(cat_name[0])
+        print cat_name[0],ajax_url
         try:
             res = urllib2.urlopen(ajax_url)
             json_data = json.loads(res.read())
